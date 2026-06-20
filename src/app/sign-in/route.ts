@@ -1,7 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { RETURN_TO_COOKIE } from "@/lib/constants";
 import { validateReturnTo } from "@/lib/return-to";
-
-const RETURN_TO_COOKIE = "kvshvl_return_to";
 
 export function GET(request: NextRequest) {
   const returnToRaw = new URL(request.url).searchParams.get("return_to");

@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { auth } from "@/auth";
+import { HandoffRedirect } from "@/components/HandoffRedirect";
+import { RETURN_TO_COOKIE } from "@/lib/constants";
 import { issuePlatformJwt } from "@/lib/platform-jwt";
 import { validateReturnTo } from "@/lib/return-to";
 
-const RETURN_TO_COOKIE = "kvshvl_return_to";
 const AUDIENCE = "kvshvl-platform";
 
 function requiredEnv(name: string): string {
@@ -15,9 +16,15 @@ function requiredEnv(name: string): string {
   return value;
 }
 
-export default async function HandoffPage() {
+type HandoffPageProps = {
+  searchParams: Promise<{ return_to?: string }>;
+};
+
+export default async function HandoffPage({ searchParams }: HandoffPageProps) {
+  const params = await searchParams;
   const cookieStore = await cookies();
-  const returnToRaw = cookieStore.get(RETURN_TO_COOKIE)?.value ?? null;
+  const returnToRaw =
+    params.return_to ?? cookieStore.get(RETURN_TO_COOKIE)?.value ?? null;
   const validated = validateReturnTo(returnToRaw);
 
   if (!validated.ok) {
@@ -36,7 +43,9 @@ export default async function HandoffPage() {
   const sub = (session?.user as { id?: string } | undefined)?.id ?? null;
 
   if (!email || !sub) {
-    redirect(`/sign-in?return_to=${encodeURIComponent(validated.returnTo.toString())}`);
+    redirect(
+      `/sign-in?return_to=${encodeURIComponent(validated.returnTo.toString())}`,
+    );
   }
 
   const issuer = requiredEnv("AUTH_URL");
@@ -47,10 +56,7 @@ export default async function HandoffPage() {
     { secret, issuer, audience: AUDIENCE, expiresInSeconds: 60 * 60 * 24 },
   );
 
-  cookieStore.set(RETURN_TO_COOKIE, "", { maxAge: 0, path: "/" });
-
-  const destination = new URL(validated.returnTo.toString());
-  destination.hash = `access_token=${encodeURIComponent(token)}`;
-  redirect(destination.toString());
+  return (
+    <HandoffRedirect returnTo={validated.returnTo.toString()} token={token} />
+  );
 }
-
