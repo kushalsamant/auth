@@ -1,8 +1,12 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { signIn } from "@/auth";
 import { RETURN_TO_COOKIE } from "@/lib/constants";
 import { validateReturnTo } from "@/lib/return-to";
+
+export const metadata: Metadata = {
+  title: "Sign in",
+};
 
 async function signInWithGoogle() {
   "use server";
@@ -19,13 +23,26 @@ async function signInWithGoogle() {
   });
 }
 
+function appOriginFromReturnTo(returnTo: string): string | null {
+  if (!returnTo) {
+    return null;
+  }
+
+  try {
+    return new URL(returnTo).origin;
+  } catch {
+    return null;
+  }
+}
+
 export default async function SignInUiPage() {
   const cookieStore = await cookies();
   const returnTo = cookieStore.get(RETURN_TO_COOKIE)?.value ?? "";
+  const appOrigin = appOriginFromReturnTo(returnTo);
 
   return (
     <main style={{ maxWidth: 720, margin: "0 auto", padding: "48px 20px" }}>
-      <h1 style={{ margin: 0, fontSize: 28, letterSpacing: "-0.02em" }}>KVSHVL</h1>
+      <h1 style={{ margin: 0, fontSize: 28, letterSpacing: "-0.02em" }}>Sign in</h1>
       <p style={{ marginTop: 10, color: "#444", lineHeight: 1.6 }}>
         Sign in with Google to continue.
       </p>
@@ -51,17 +68,11 @@ export default async function SignInUiPage() {
         </form>
       </div>
 
-      <p style={{ marginTop: 18, color: "#666", fontSize: 12, lineHeight: 1.6 }}>
-        Return target:{" "}
-        <code style={{ background: "#f6f6f6", padding: "2px 6px", borderRadius: 6 }}>
-          {returnTo || "(missing)"}
-        </code>
-      </p>
-
-      <p style={{ marginTop: 18, color: "#666", fontSize: 12, lineHeight: 1.6 }}>
-        <Link href="https://www.kvshvl.in">Back to kvshvl.in</Link>
-      </p>
+      {appOrigin && (
+        <p style={{ marginTop: 18, color: "#666", fontSize: 12, lineHeight: 1.6 }}>
+          <a href={appOrigin}>Back to app</a>
+        </p>
+      )}
     </main>
   );
 }
-

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function Home() {
-  redirect("https://www.kvshvl.in");
+  redirect("https://checkyourdrawings.kvshvl.in");
 }

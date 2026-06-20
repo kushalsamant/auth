@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { auth } from "@/auth";
@@ -5,6 +6,20 @@ import { HandoffRedirect } from "@/components/HandoffRedirect";
 import { RETURN_TO_COOKIE } from "@/lib/constants";
 import { issuePlatformJwt } from "@/lib/platform-jwt";
 import { validateReturnTo } from "@/lib/return-to";
+
+export async function generateMetadata({ searchParams }: HandoffPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const cookieStore = await cookies();
+  const returnToRaw =
+    params.return_to ?? cookieStore.get(RETURN_TO_COOKIE)?.value ?? null;
+  const validated = validateReturnTo(returnToRaw);
+
+  if (!validated.ok) {
+    return { title: "Could not complete sign-in" };
+  }
+
+  return { title: "Completing sign-in" };
+}
 
 const AUDIENCE = "kvshvl-platform";
 
