@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
+import { DEFAULT_RETURN_TO_APP } from "@/lib/constants";
 
 export default function Home() {
-  redirect("https://checkyourdrawings.kvshvl.in");
+  redirect(DEFAULT_RETURN_TO_APP);
 }

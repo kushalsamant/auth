@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { PageShell, theme } from "@/components/PageShell";
 
 type HandoffRedirectProps = {
   returnTo: string;
@@ -15,9 +16,10 @@ export function HandoffRedirect({ returnTo, token }: HandoffRedirectProps) {
   }, [returnTo, token]);
 
   return (
-    <main style={{ maxWidth: 720, margin: "0 auto", padding: "48px 20px" }}>
-      <h1 style={{ margin: 0, fontSize: 28, letterSpacing: "-0.02em" }}>Completing sign-in</h1>
-      <p style={{ marginTop: 10, color: "#444", lineHeight: 1.6 }}>Returning you to the app…</p>
-    </main>
+    <PageShell title="Completing sign-in">
+      <p style={{ marginTop: 10, color: theme.textMuted, lineHeight: 1.6 }}>
+        Returning you to the app…
+      </p>
+    </PageShell>
   );
 }

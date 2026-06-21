@@ -1,5 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { RETURN_TO_COOKIE } from "@/lib/constants";
+import {
+  RETURN_TO_COOKIE,
+  RETURN_TO_COOKIE_MAX_AGE_SECONDS,
+} from "@/lib/constants";
 import { validateReturnTo } from "@/lib/return-to";
 
 export function GET(request: NextRequest) {
@@ -19,7 +22,7 @@ export function GET(request: NextRequest) {
     sameSite: "lax",
     secure: true,
     path: "/",
-    maxAge: 10 * 60,
+    maxAge: RETURN_TO_COOKIE_MAX_AGE_SECONDS,
   });
   return response;
 }
