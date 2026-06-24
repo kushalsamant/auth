@@ -5,6 +5,48 @@ export type ReturnToValidationResult =
   | { ok: true; returnTo: URL }
   | { ok: false; reason: string };
 
+export function getReturnToAllowlist(): string[] | null {
+  const raw = process.env.AUTH_RETURN_TO_ALLOWLIST;
+  if (!raw?.trim()) {
+    return null;
+  }
+
+  return raw
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+}
+
+function hostnameFromAllowlistEntry(entry: string): string | null {
+  try {
+    const url = new URL(entry.includes("://") ? entry : `https://${entry}`);
+    return url.hostname.toLowerCase();
+  } catch {
+    return null;
+  }
+}
+
+function hostMatchesWildcardKvshvl(host: string): boolean {
+  return host.endsWith(".kvshvl.in");
+}
+
+function hostMatchesAllowlist(host: string, allowlist: string[]): boolean {
+  return allowlist.some((entry) => hostnameFromAllowlistEntry(entry) === host);
+}
+
+export function isReturnToHostAllowed(
+  host: string,
+  allowlist: string[] | null = getReturnToAllowlist(),
+): boolean {
+  const normalizedHost = host.toLowerCase();
+
+  if (allowlist && allowlist.length > 0) {
+    return hostMatchesAllowlist(normalizedHost, allowlist);
+  }
+
+  return hostMatchesWildcardKvshvl(normalizedHost);
+}
+
 export function validateReturnTo(raw: string | null): ReturnToValidationResult {
   if (!raw) return { ok: false, reason: "Missing return_to." };
 
@@ -20,8 +62,8 @@ export function validateReturnTo(raw: string | null): ReturnToValidationResult {
   }
 
   const host = url.hostname.toLowerCase();
-  if (!host.endsWith(".kvshvl.in")) {
-    return { ok: false, reason: "return_to must be under *.kvshvl.in." };
+  if (!isReturnToHostAllowed(host)) {
+    return { ok: false, reason: "return_to is not an allowed app URL." };
   }
 
   return { ok: true, returnTo: url };
@@ -35,4 +77,3 @@ export async function resolveReturnTo(
     returnToParam ?? cookieStore.get(RETURN_TO_COOKIE)?.value ?? null;
   return validateReturnTo(returnToRaw);
 }
-

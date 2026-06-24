@@ -22,8 +22,11 @@ Optional:
 | Var | Purpose |
 |-----|---------|
 | `AUTH_PLATFORM_JWT_TTL_SECONDS` | Platform JWT lifetime in seconds (default `7200` = 2h). Lower = smaller window if a token is stolen. |
+| `AUTH_RETURN_TO_ALLOWLIST` | Comma-separated allowed `return_to` origins (e.g. `https://checkyourdrawings.kvshvl.in`). When unset, any `https://*.kvshvl.in` subdomain is allowed. |
 
 `trustHost` is enabled directly in `src/auth.ts`, so `AUTH_TRUST_HOST` is not required.
+
+Copy [`.env.example`](.env.example) for local placeholders.
 
 ## Local dev
 
@@ -33,3 +36,18 @@ npm run dev
 ```
 
 Copy env from Vercel: `vercel env pull .env.local`
+
+**Sign-in testing:** use production auth at `https://auth.kvshvl.in` with a real `https://*.kvshvl.in` `return_to` (e.g. `https://checkyourdrawings.kvshvl.in/auth/callback`). Local `npm run dev` does not support end-to-end sign-in on `localhost` because `return_to` must be HTTPS under `*.kvshvl.in` and the return_to cookie is `secure`.
+
+Handoff flow: after Google OAuth, `/handoff` redirects to the app with a short-lived `handoff_code` query param. The app exchanges it via `POST /api/handoff/exchange` for the platform JWT.
+
+## CI
+
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
+
+GitHub Actions runs the same checks on push/PR to `main`.

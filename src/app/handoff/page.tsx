@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { HandoffRedirect } from "@/components/HandoffRedirect";
 import { PageShell, theme } from "@/components/PageShell";
 import {
   PLATFORM_JWT_AUDIENCE,
   getPlatformJwtTtlSeconds,
 } from "@/lib/constants";
+import { createHandoffCode } from "@/lib/handoff-code";
 import { issuePlatformJwt } from "@/lib/platform-jwt";
 import { resolveReturnTo } from "@/lib/return-to";
 
@@ -70,7 +70,9 @@ export default async function HandoffPage({ searchParams }: HandoffPageProps) {
     },
   );
 
-  return (
-    <HandoffRedirect returnTo={validated.returnTo.toString()} token={token} />
-  );
+  const handoffCode = await createHandoffCode(token, secret);
+  const destination = new URL(validated.returnTo.toString());
+  destination.searchParams.set("handoff_code", handoffCode);
+
+  redirect(destination.toString());
 }

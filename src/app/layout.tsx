@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Sign in · KVSHVL",
+    default: "KVSHVL",
     template: "%s · KVSHVL",
   },
   description: "Sign in with Google to continue to your KVSHVL app.",

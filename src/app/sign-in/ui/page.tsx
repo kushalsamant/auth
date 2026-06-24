@@ -6,7 +6,9 @@ import { RETURN_TO_COOKIE } from "@/lib/constants";
 import { validateReturnTo } from "@/lib/return-to";
 
 export const metadata: Metadata = {
-  title: "Sign in",
+  title: {
+    absolute: "KVSHVL",
+  },
 };
 
 async function signInWithGoogle() {
@@ -42,7 +44,7 @@ export default async function SignInUiPage() {
   const appOrigin = appOriginFromReturnTo(returnTo);
 
   return (
-    <PageShell title="Sign in">
+    <PageShell title="KVSHVL">
       <p style={{ marginTop: 10, color: theme.textMuted, lineHeight: 1.6 }}>
         Sign in with Google to continue.
       </p>

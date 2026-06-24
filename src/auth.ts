@@ -6,6 +6,15 @@ export const { handlers, auth, signIn } = NextAuth({
   providers: [Google],
   session: { strategy: "jwt" },
   callbacks: {
+    async signIn({ profile }) {
+      if (profile && typeof profile === "object") {
+        const googleProfile = profile as { email_verified?: boolean };
+        if (googleProfile.email_verified === false) {
+          return false;
+        }
+      }
+      return true;
+    },
     async jwt({ token, profile }) {
       if (profile && typeof profile === "object") {
         const googleProfile = profile as { sub?: string; name?: string; email?: string };
