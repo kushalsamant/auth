@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { PageShell, theme } from "@/components/PageShell";
+import { PageShell } from "@/components/PageShell";
 import {
   PLATFORM_JWT_AUDIENCE,
   getPlatformJwtTtlSeconds,
@@ -40,9 +40,7 @@ export default async function HandoffPage({ searchParams }: HandoffPageProps) {
   if (!validated.ok) {
     return (
       <PageShell title="Could not complete sign-in">
-        <p style={{ marginTop: 10, color: theme.textMuted, lineHeight: 1.6 }}>
-          {validated.reason}
-        </p>
+        <p className="text-muted">{validated.reason}</p>
       </PageShell>
     );
   }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { signIn } from "@/auth";
-import { PageShell, theme } from "@/components/PageShell";
+import { PageShell } from "@/components/PageShell";
 import { RETURN_TO_COOKIE } from "@/lib/constants";
 import { validateReturnTo } from "@/lib/return-to";
 
@@ -45,33 +45,14 @@ export default async function SignInUiPage() {
 
   return (
     <PageShell title="KVSHVL">
-      <p style={{ marginTop: 10, color: theme.textMuted, lineHeight: 1.6 }}>
-        Sign in with Google to continue.
-      </p>
+      <p className="text-muted">Sign in with Google to continue.</p>
 
-      <div style={{ marginTop: 24 }}>
-        <form action={signInWithGoogle}>
-          <button
-            type="submit"
-            style={{
-              display: "inline-block",
-              padding: "10px 14px",
-              borderRadius: 10,
-              background: theme.brand,
-              color: "white",
-              border: "none",
-              fontWeight: 600,
-              cursor: "pointer",
-              fontSize: "inherit",
-            }}
-          >
-            Sign in with Google
-          </button>
-        </form>
-      </div>
+      <form action={signInWithGoogle}>
+        <button type="submit" className="action-primary">Sign in with Google</button>
+      </form>
 
       {appOrigin && (
-        <p style={{ marginTop: 18, color: theme.textFaint, fontSize: 12, lineHeight: 1.6 }}>
+        <p className="text-muted">
           <a href={appOrigin}>Back to app</a>
         </p>
       )}
