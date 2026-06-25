@@ -55,6 +55,10 @@ p {
   max-width: 65ch;
 }
 
+form {
+  margin: 0 0 1.4rem;
+}
+
 .text-muted {
   color: var(--text-muted);
 }
