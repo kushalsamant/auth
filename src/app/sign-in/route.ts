@@ -10,10 +10,9 @@ export function GET(request: NextRequest) {
   const validated = validateReturnTo(returnToRaw);
 
   if (!validated.ok) {
-    return NextResponse.json(
-      { error: validated.reason },
-      { status: 400, headers: { "content-type": "application/json" } },
-    );
+    const errorUrl = new URL("/sign-in/error", request.url);
+    errorUrl.searchParams.set("reason", validated.reason);
+    return NextResponse.redirect(errorUrl);
   }
 
   const response = NextResponse.redirect(new URL("/sign-in/ui", request.url));

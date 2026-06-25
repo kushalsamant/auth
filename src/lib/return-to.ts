@@ -48,22 +48,22 @@ export function isReturnToHostAllowed(
 }
 
 export function validateReturnTo(raw: string | null): ReturnToValidationResult {
-  if (!raw) return { ok: false, reason: "Missing return_to." };
+  if (!raw) return { ok: false, reason: "Missing return destination." };
 
   let url: URL;
   try {
     url = new URL(raw);
   } catch {
-    return { ok: false, reason: "Invalid return_to URL." };
+    return { ok: false, reason: "Invalid return URL." };
   }
 
   if (url.protocol !== "https:") {
-    return { ok: false, reason: "return_to must be https." };
+    return { ok: false, reason: "Return URL must use HTTPS." };
   }
 
   const host = url.hostname.toLowerCase();
   if (!isReturnToHostAllowed(host)) {
-    return { ok: false, reason: "return_to is not an allowed app URL." };
+    return { ok: false, reason: "Return URL is not an allowed app." };
   }
 
   return { ok: true, returnTo: url };

@@ -45,7 +45,7 @@ export default async function SignInUiPage() {
 
   return (
     <PageShell title="KVSHVL">
-      <p className="text-muted">Sign in with Google to continue.</p>
+      <p className="text-muted">One sign-in for all KVSHVL apps.</p>
 
       <form action={signInWithGoogle}>
         <button type="submit" className="action-primary">Sign in with Google</button>

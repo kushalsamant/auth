@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     default: "KVSHVL",
     template: "%s · KVSHVL",
   },
-  description: "Sign in with Google to continue to your KVSHVL app.",
+  description: "One Google sign-in for all KVSHVL apps.",
   icons: {
     icon: [{ url: KVSHVL_FAVICON_URL, type: "image/png" }],
     shortcut: KVSHVL_FAVICON_URL,

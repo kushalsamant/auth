@@ -29,7 +29,7 @@ describe("validateReturnTo", () => {
     const result = validateReturnTo(null);
     assert.equal(result.ok, false);
     if (!result.ok) {
-      assert.equal(result.reason, "Missing return_to.");
+      assert.equal(result.reason, "Missing return destination.");
     }
   });
 
@@ -37,7 +37,7 @@ describe("validateReturnTo", () => {
     const result = validateReturnTo("not-a-url");
     assert.equal(result.ok, false);
     if (!result.ok) {
-      assert.equal(result.reason, "Invalid return_to URL.");
+      assert.equal(result.reason, "Invalid return URL.");
     }
   });
 
@@ -47,7 +47,7 @@ describe("validateReturnTo", () => {
     );
     assert.equal(result.ok, false);
     if (!result.ok) {
-      assert.equal(result.reason, "return_to must be https.");
+      assert.equal(result.reason, "Return URL must use HTTPS.");
     }
   });
 
@@ -55,7 +55,7 @@ describe("validateReturnTo", () => {
     const result = validateReturnTo("https://kvshvl.in/");
     assert.equal(result.ok, false);
     if (!result.ok) {
-      assert.equal(result.reason, "return_to is not an allowed app URL.");
+      assert.equal(result.reason, "Return URL is not an allowed app.");
     }
   });
 

@@ -3,6 +3,9 @@ import Google from "next-auth/providers/google";
 
 export const { handlers, auth, signIn } = NextAuth({
   trustHost: true,
+  pages: {
+    error: "/api/auth/error",
+  },
   providers: [Google],
   session: { strategy: "jwt" },
   callbacks: {
