@@ -1,6 +1,6 @@
 "use client";
 
-import { PageShell } from "@/components/PageShell";
+import { AuthShell } from "@kvshvl/platform-design-system";
 import { DEFAULT_RETURN_TO_APP } from "@/lib/constants";
 
 type ErrorPageProps = {
@@ -10,7 +10,7 @@ type ErrorPageProps = {
 
 export default function ErrorPage({ reset }: ErrorPageProps) {
   return (
-    <PageShell title="Something went wrong">
+    <AuthShell title="Something went wrong">
       <p className="text-muted">Sign-in hit an unexpected error.</p>
       <p>
         <button type="button" className="action-primary" onClick={reset}>
@@ -20,6 +20,6 @@ export default function ErrorPage({ reset }: ErrorPageProps) {
       <p className="text-muted">
         <a href={DEFAULT_RETURN_TO_APP}>Back to app</a>
       </p>
-    </PageShell>
+    </AuthShell>
   );
 }

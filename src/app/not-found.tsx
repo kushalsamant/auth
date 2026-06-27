@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { PageShell } from "@/components/PageShell";
+import { AuthShell } from "@kvshvl/platform-design-system";
 import { DEFAULT_RETURN_TO_APP } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <PageShell title="Page not found">
+    <AuthShell title="Page not found">
       <p className="text-muted">This URL is not part of KVSHVL sign-in.</p>
       <p className="text-muted">
         <a href={DEFAULT_RETURN_TO_APP}>Back to app</a>
       </p>
-    </PageShell>
+    </AuthShell>
   );
 }

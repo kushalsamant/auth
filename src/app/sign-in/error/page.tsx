@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { PageShell } from "@/components/PageShell";
+import { AuthShell } from "@kvshvl/platform-design-system";
 import { DEFAULT_RETURN_TO_APP } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -18,11 +18,11 @@ export default async function SignInErrorPage({
   const reason = params.reason?.trim() || "Sign-in could not start.";
 
   return (
-    <PageShell title="Could not start sign-in">
+    <AuthShell title="Could not start sign-in">
       <p className="text-muted">{reason}</p>
       <p className="text-muted">
         <a href={DEFAULT_RETURN_TO_APP}>Back to app</a>
       </p>
-    </PageShell>
+    </AuthShell>
   );
 }

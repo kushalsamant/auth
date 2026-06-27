@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { Suspense } from "react";
 
-import { PageShell } from "@/components/PageShell";
+import { AuthShell } from "@kvshvl/platform-design-system";
 import { RETURN_TO_COOKIE } from "@/lib/constants";
 
 import { AuthErrorContent } from "./auth-error-content";
@@ -27,9 +27,9 @@ export default async function AuthErrorPage() {
   return (
     <Suspense
       fallback={
-        <PageShell title="Sign-in error">
+        <AuthShell title="Sign-in error">
           <p className="text-muted">Loading…</p>
-        </PageShell>
+        </AuthShell>
       }
     >
       <AuthErrorContent backHref={backHref} />

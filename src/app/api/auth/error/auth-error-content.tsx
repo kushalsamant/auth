@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 
-import { PageShell } from "@/components/PageShell";
+import { AuthShell } from "@kvshvl/platform-design-system";
 import { authErrorMessage } from "@/lib/auth-error-messages";
 
 type AuthErrorContentProps = {
@@ -15,7 +15,7 @@ export function AuthErrorContent({ backHref }: AuthErrorContentProps) {
   const message = authErrorMessage(errorCode);
 
   return (
-    <PageShell title="Sign-in error">
+    <AuthShell title="Sign-in error">
       <p className="text-muted">{message}</p>
       <p>
         <a href="/sign-in/ui">Try again</a>
@@ -25,6 +25,6 @@ export function AuthErrorContent({ backHref }: AuthErrorContentProps) {
           <a href={backHref}>Back to app</a>
         </p>
       )}
-    </PageShell>
+    </AuthShell>
   );
 }

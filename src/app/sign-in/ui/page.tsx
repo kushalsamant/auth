@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { signIn } from "@/auth";
-import { PageShell } from "@/components/PageShell";
+import { AuthShell } from "@kvshvl/platform-design-system";
 import { RETURN_TO_COOKIE } from "@/lib/constants";
 import { validateReturnTo } from "@/lib/return-to";
 
@@ -44,7 +44,7 @@ export default async function SignInUiPage() {
   const appOrigin = appOriginFromReturnTo(returnTo);
 
   return (
-    <PageShell title="KVSHVL">
+    <AuthShell title="KVSHVL">
       <p className="text-muted">One sign-in for all KVSHVL apps.</p>
 
       <form action={signInWithGoogle}>
@@ -56,6 +56,6 @@ export default async function SignInUiPage() {
           <a href={appOrigin}>Back to app</a>
         </p>
       )}
-    </PageShell>
+    </AuthShell>
   );
 }

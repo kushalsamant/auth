@@ -4,8 +4,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "KVSHVL",
-    template: "%s · KVSHVL",
+    default: "Auth — KVSHVL",
+    template: "%s — KVSHVL",
   },
   description: "One Google sign-in for all KVSHVL apps.",
   icons: {
