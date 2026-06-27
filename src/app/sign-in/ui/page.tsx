@@ -44,9 +44,7 @@ export default async function SignInUiPage() {
   const appOrigin = appOriginFromReturnTo(returnTo);
 
   return (
-    <AuthShell title="KVSHVL">
-      <p className="text-muted">One sign-in for all KVSHVL apps.</p>
-
+    <AuthShell>
       <form action={signInWithGoogle}>
         <button type="submit" className="action-primary">Sign in with Google</button>
       </form>
