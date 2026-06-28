@@ -31,6 +31,6 @@ jobs:
 
       - name: Build
         env:
-          AUTH_URL: https://auth.kvshvl.in
+          AUTH_URL: https://platform-auth.kvshvl.in
           AUTH_SECRET: ci-build-placeholder-secret-min-32-chars
         run: npm run build
