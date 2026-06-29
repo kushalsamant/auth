@@ -7,4 +7,4 @@ if [ ! -d "${DESIGN_SYSTEM_DIR}/package.json" ]; then
 fi
 npm ci --prefix "${DESIGN_SYSTEM_DIR}"
 npm run build --prefix "${DESIGN_SYSTEM_DIR}"
-npm install
+npm ci
