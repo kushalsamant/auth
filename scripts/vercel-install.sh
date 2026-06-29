@@ -1,3 +1,3 @@
-#!/bin/bash
+﻿#!/bin/bash
 set -eu
 npm install
