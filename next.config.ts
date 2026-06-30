@@ -20,6 +20,7 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@kvshvl/platform-design-system"],
+  outputFileTracingRoot: repoRoot,
   turbopack: {
     root: repoRoot,
   },

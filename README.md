@@ -1,12 +1,12 @@
-# platform-auth
+# auth
 
-Unified KVSHVL sign-in service for `platform-auth.kvshvl.in`.
+Unified KVSHVL sign-in service for `auth.kvshvl.in`.
 
 Google OAuth via Auth.js (NextAuth v5). Issues platform JWTs for KVSHVL apps (e.g. Check Your Drawings).
 
 ## Deploy
 
-Production: Vercel project `kvshvl/platform-auth` → https://platform-auth.kvshvl.in
+Production: Vercel project `kvshvl/kvshvl-auth` → https://auth.kvshvl.in
 
 Required env vars:
 
@@ -37,7 +37,7 @@ npm run dev
 
 Copy env from Vercel: `vercel env pull .env.local`
 
-**Sign-in testing:** use production auth at `https://platform-auth.kvshvl.in` with a real `https://*.kvshvl.in` `return_to` (e.g. `https://checkyourdrawings.kvshvl.in/auth/callback`). Local `npm run dev` does not support end-to-end sign-in on `localhost` because `return_to` must be HTTPS under `*.kvshvl.in` and the return_to cookie is `secure`.
+**Sign-in testing:** use production auth at `https://auth.kvshvl.in` with a real `https://*.kvshvl.in` `return_to` (e.g. `https://checkyourdrawings.kvshvl.in/auth/callback`). Local `npm run dev` does not support end-to-end sign-in on `localhost` because `return_to` must be HTTPS under `*.kvshvl.in` and the return_to cookie is `secure`.
 
 Handoff flow: after Google OAuth, `/handoff` redirects to the app with a short-lived `handoff_code` query param. The app exchanges it via `POST /api/handoff/exchange` for the platform JWT.
 
