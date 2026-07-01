@@ -1,8 +1,4 @@
 import type { NextConfig } from "next";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -20,10 +16,6 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@kvshvl/platform-design-system"],
-  outputFileTracingRoot: repoRoot,
-  turbopack: {
-    root: repoRoot,
-  },
   async headers() {
     return [
       {
