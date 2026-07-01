@@ -1,4 +1,4 @@
-# auth
+# platform-auth
 
 Unified KVSHVL sign-in service for `auth.kvshvl.in`.
 
@@ -6,7 +6,7 @@ Google OAuth via Auth.js (NextAuth v5). Issues platform JWTs for KVSHVL apps (e.
 
 ## Deploy
 
-Production: Vercel project `kvshvl/kvshvl-auth` → https://auth.kvshvl.in
+Production: Vercel project `kvshvl/platform-auth` → https://auth.kvshvl.in
 
 Required env vars:
 
